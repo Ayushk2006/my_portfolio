@@ -1,4 +1,5 @@
 import React from 'react';
+// eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
 import { Briefcase, Calendar } from 'lucide-react';
 
@@ -47,14 +48,17 @@ const Experience = () => {
           {experiences.map((exp, index) => (
             <motion.div 
               key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
+              initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.6, type: "spring", bounce: 0.3 }}
               className={`flex flex-col md:flex-row ${index % 2 === 0 ? 'md:flex-row-reverse' : ''} items-center justify-between relative`}
             >
               <div className="w-full md:w-5/12">
-                <div className="bg-white dark:bg-gray-900 p-6 rounded-xl shadow-md border border-gray-100 dark:border-gray-700 hover:shadow-xl transition-shadow">
+                <motion.div 
+                  whileHover={{ scale: 1.02 }}
+                  className="bg-white dark:bg-gray-900 p-6 rounded-xl shadow-md border border-gray-100 dark:border-gray-700 hover:shadow-xl transition-all"
+                >
                   <div className="flex items-center justify-between mb-4">
                     <h3 className="text-xl font-bold text-gray-900 dark:text-white">{exp.role}</h3>
                     <div className="flex items-center text-sm text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 px-3 py-1 rounded-full">
@@ -71,13 +75,19 @@ const Experience = () => {
                       </span>
                     ))}
                   </div>
-                </div>
+                </motion.div>
               </div>
 
               {/* Timeline dot */}
-              <div className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-8 h-8 rounded-full bg-blue-600 border-4 border-white dark:border-gray-900 items-center justify-center z-10">
+              <motion.div 
+                initial={{ scale: 0 }}
+                whileInView={{ scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2, type: "spring" }}
+                className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-8 h-8 rounded-full bg-blue-600 border-4 border-white dark:border-gray-900 items-center justify-center z-10"
+              >
                 <Briefcase size={14} className="text-white" />
-              </div>
+              </motion.div>
               
               <div className="w-full md:w-5/12 hidden md:block" />
             </motion.div>
