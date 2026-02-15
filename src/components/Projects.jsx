@@ -17,6 +17,21 @@ const Projects = () => {
     }
   ];
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+  };
+
   return (
     <section id="projects" className="py-20 bg-gray-50 dark:bg-gray-800 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -37,15 +52,19 @@ const Projects = () => {
           />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
           {projects.map((project, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="bg-white dark:bg-gray-900 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow border border-gray-100 dark:border-gray-700"
+              variants={itemVariants}
+              whileHover={{ y: -10 }}
+              className="bg-white dark:bg-gray-900 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 dark:border-gray-700"
             >
               <div className="h-48 overflow-hidden relative group">
                 <img 
@@ -53,12 +72,12 @@ const Projects = () => {
                   alt={project.title} 
                   className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center space-x-4">
-                  <a href={project.github} className="p-2 bg-white rounded-full hover:bg-gray-100 transition-colors">
-                    <Github size={20} className="text-gray-900" />
+                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-6 backdrop-blur-sm">
+                  <a href={project.github} className="p-3 bg-white rounded-full hover:bg-gray-100 transition-colors transform hover:scale-110">
+                    <Github size={22} className="text-gray-900" />
                   </a>
-                  <a href={project.demo} className="p-2 bg-white rounded-full hover:bg-gray-100 transition-colors">
-                    <ExternalLink size={20} className="text-gray-900" />
+                  <a href={project.demo} className="p-3 bg-white rounded-full hover:bg-gray-100 transition-colors transform hover:scale-110">
+                    <ExternalLink size={22} className="text-gray-900" />
                   </a>
                 </div>
               </div>
@@ -69,13 +88,13 @@ const Projects = () => {
                   <span className="text-xs text-gray-500 dark:text-gray-400 font-medium">{project.date}</span>
                 </div>
                 
-                <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
+                <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3 leading-relaxed">
                   {project.description}
                 </p>
                 
                 <div className="flex flex-wrap gap-2 mt-auto">
                   {project.tech.map((t) => (
-                    <span key={t} className="px-2 py-1 text-xs font-medium text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 rounded-md">
+                    <span key={t} className="px-3 py-1 text-xs font-semibold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 rounded-full">
                       {t}
                     </span>
                   ))}
@@ -83,7 +102,7 @@ const Projects = () => {
               </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

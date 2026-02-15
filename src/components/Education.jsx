@@ -43,16 +43,20 @@ const Education = () => {
           {education.map((edu, index) => (
             <motion.div 
               key={index}
-              initial={{ opacity: 0, x: -20 }}
+              initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="flex gap-6 mb-12 last:mb-0"
+              transition={{ delay: index * 0.2, duration: 0.5 }}
+              whileHover={{ x: 10 }}
+              className="flex gap-6 mb-12 last:mb-0 group cursor-default"
             >
               <div className="flex flex-col items-center">
-                <div className="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center shrink-0">
+                <motion.div 
+                  whileHover={{ scale: 1.1, rotate: 10 }}
+                  className="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center shrink-0 transition-colors group-hover:bg-blue-200 dark:group-hover:bg-blue-800/40"
+                >
                   <GraduationCap className="text-blue-600 dark:text-blue-400" size={24} />
-                </div>
+                </motion.div>
                 {index !== education.length - 1 && (
                   <div className="w-0.5 h-full bg-gray-200 dark:bg-gray-700 mt-4" />
                 )}
@@ -62,7 +66,7 @@ const Education = () => {
                 <span className="inline-block px-3 py-1 mb-2 text-xs font-semibold tracking-wider text-blue-600 uppercase bg-blue-50 rounded-full dark:bg-blue-900/20 dark:text-blue-400">
                   {edu.year}
                 </span>
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1">{edu.degree}</h3>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{edu.degree}</h3>
                 <h4 className="text-lg text-gray-600 dark:text-gray-300 mb-3">{edu.school}</h4>
                 <p className="text-gray-500 dark:text-gray-400 leading-relaxed">
                   {edu.description}
